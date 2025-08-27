@@ -23,7 +23,7 @@ import com.dadehfa.toranj.common.ui.R as CommonUiR
 @Composable
 fun SplashScreen(
     modifier: Modifier = Modifier,
-    onNavigateToLogin: () -> Unit,
+    onNavigateToRegister: () -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -49,7 +49,7 @@ fun SplashScreen(
 
     LaunchedEffect(Unit) {
         delay(1.seconds)
-        onNavigateToLogin()
+        onNavigateToRegister()
     }
 }
 
@@ -57,6 +57,6 @@ fun SplashScreen(
 @Composable
 private fun SplashScreenPreview() {
     SplashScreen(
-        onNavigateToLogin = {}
+        onNavigateToRegister = {}
     )
 }
