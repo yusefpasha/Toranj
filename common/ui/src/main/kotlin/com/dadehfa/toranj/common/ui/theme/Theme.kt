@@ -3,6 +3,7 @@ package com.dadehfa.toranj.common.ui.theme
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
@@ -42,11 +43,13 @@ fun ToranjTheme(
     CompositionLocalProvider(
         LocalPadding provides Padding(),
     ) {
-        MaterialTheme(
-            colorScheme = colorScheme,
-            typography = Typography,
-            shapes = Shape,
-            content = content
-        )
+        Surface(color = colorScheme.background) {
+            MaterialTheme(
+                colorScheme = colorScheme,
+                typography = Typography,
+                shapes = Shape,
+                content = content
+            )
+        }
     }
 }
