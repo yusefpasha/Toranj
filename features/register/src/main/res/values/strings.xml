@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="login_screen">Login Screen</string>
-    <string name="login_username_label">Username</string>
-    <string name="login_password_label">Password</string>
-    <string name="login_remember_me">Remember me</string>
-    <string name="login_apply_btn">Login</string>
+    <string name="register_screen">Register Screen</string>
+    <string name="register_username_label">Username</string>
+    <string name="register_password_label">Password</string>
+    <string name="register_remember_me">Remember me</string>
+    <string name="register_apply_btn">Login</string>
 
 </resources>

@@ -30,8 +30,8 @@ import com.dadehfa.toranj.features.register.R
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
-    state: LoginState,
-    onEvent: (event: LoginEvent) -> Unit
+    state: RegisterState,
+    onEvent: (event: RegisterEvent) -> Unit
 ) {
     Scaffold(
         modifier = Modifier
@@ -41,7 +41,7 @@ fun LoginScreen(
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        text = stringResource(R.string.login_screen)
+                        text = stringResource(R.string.register_screen)
                     )
                 }
             )
@@ -73,18 +73,18 @@ fun LoginScreen(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         DefaultEditText(
-                            label = stringResource(R.string.login_username_label),
+                            label = stringResource(R.string.register_username_label),
                             value = state.username,
                             leadingIcon = Icons.Rounded.Person,
                             onValueChange = { username ->
-                                onEvent(LoginEvent.OnUsernameChange(username))
+                                onEvent(RegisterEvent.OnUsernameChange(username))
                             }
                         )
                         DefaultEditTextPassword(
-                            label = stringResource(R.string.login_password_label),
+                            label = stringResource(R.string.register_password_label),
                             value = state.password,
                             onValueChange = { password ->
-                                onEvent(LoginEvent.OnPasswordChange(password))
+                                onEvent(RegisterEvent.OnPasswordChange(password))
                             }
                         )
                         Row(
@@ -94,11 +94,11 @@ fun LoginScreen(
                             Checkbox(
                                 checked = state.isRememberMe,
                                 onCheckedChange = { isRememberMe ->
-                                    onEvent(LoginEvent.OnRememberMeChange(isRememberMe))
+                                    onEvent(RegisterEvent.OnRememberMeChange(isRememberMe))
                                 }
                             )
                             Text(
-                                text = stringResource(R.string.login_remember_me)
+                                text = stringResource(R.string.register_remember_me)
                             )
                         }
                     }
@@ -108,11 +108,11 @@ fun LoginScreen(
                     modifier = Modifier.fillMaxWidth(0.8F),
                     shape = MaterialTheme.shapes.large,
                     onClick = {
-                        onEvent(LoginEvent.OnLoginClick)
+                        onEvent(RegisterEvent.OnLoginClick)
                     }
                 ) {
                     Text(
-                        text = stringResource(R.string.login_apply_btn)
+                        text = stringResource(R.string.register_apply_btn)
                     )
                 }
 
@@ -125,7 +125,7 @@ fun LoginScreen(
 @Composable
 private fun LoginScreenPreview() {
     LoginScreen(
-        state = LoginState(
+        state = RegisterState(
             username = "yusefpasha",
             password = "0912345678",
         ),

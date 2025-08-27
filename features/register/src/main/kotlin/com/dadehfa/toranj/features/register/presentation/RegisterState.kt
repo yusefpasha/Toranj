@@ -3,7 +3,7 @@ package com.dadehfa.toranj.features.register.presentation
 import androidx.compose.runtime.Stable
 
 @Stable
-data class LoginState(
+data class RegisterState(
     val error: String? = null,
     val username: String = "",
     val password: String = "",
