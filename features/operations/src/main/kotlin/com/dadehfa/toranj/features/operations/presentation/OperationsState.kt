@@ -7,5 +7,6 @@ import com.dadehfa.toranj.features.operations.domain.model.RepositoryItem
 @Stable
 data class OperationsState(
     val menuItems: List<MenuItem> = emptyList(),
-    val repository: List<RepositoryItem> = emptyList()
+    val repositoryItems: List<RepositoryItem> = emptyList(),
+    val selectedRepository: RepositoryItem? = repositoryItems.firstOrNull()
 )

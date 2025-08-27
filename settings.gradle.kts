@@ -30,5 +30,6 @@ include(
     ":features:splash",
     ":features:register",
     ":features:operations",
-    ":features:dashboard"
+    ":features:dashboard",
+    ":features:setting",
 )
