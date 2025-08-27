@@ -25,5 +25,4 @@ includeBuild("gradleSrc")
 
 include(":app")
 include(":common", ":common:ui")
-include(":features", ":features:splash")
-include(":features:register")
+include(":features", ":features:splash", ":features:register", ":features:operations")
