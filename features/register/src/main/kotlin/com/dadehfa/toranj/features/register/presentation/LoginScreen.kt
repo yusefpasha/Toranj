@@ -105,6 +105,8 @@ fun LoginScreen(
                 }
 
                 Button(
+                    modifier = Modifier.fillMaxWidth(0.8F),
+                    shape = MaterialTheme.shapes.large,
                     onClick = {
                         onEvent(LoginEvent.OnLoginClick)
                     }
