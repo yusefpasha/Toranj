@@ -54,19 +54,24 @@ fun OperationsScreen(
                 )
             ) {
                 stickyHeader {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Start
+                    Surface(
+                        shape = MaterialTheme.shapes.medium,
+                        color = MaterialTheme.colorScheme.background
                     ) {
-                        Text(
-                            modifier = Modifier.padding(MaterialTheme.padding.small),
-                            text = stringResource(R.string.operations_repositories),
-                            color = MaterialTheme.colorScheme.onPrimaryContainer
-                        )
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
-                            contentDescription = null
-                        )
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Start
+                        ) {
+                            Text(
+                                modifier = Modifier.padding(MaterialTheme.padding.small),
+                                text = stringResource(R.string.operations_repositories),
+                                color = MaterialTheme.colorScheme.onPrimaryContainer
+                            )
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
+                                contentDescription = null
+                            )
+                        }
                     }
                 }
                 items(
