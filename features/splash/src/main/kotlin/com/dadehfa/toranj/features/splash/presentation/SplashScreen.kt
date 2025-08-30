@@ -28,7 +28,7 @@ fun SplashScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(MaterialTheme.padding.large)
+            .padding(MaterialTheme.padding.extraLarge)
             .then(modifier)
     ) {
         Image(
