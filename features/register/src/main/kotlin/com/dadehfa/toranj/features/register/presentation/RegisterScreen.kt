@@ -137,11 +137,14 @@ fun RegisterScreen(
                     }
 
                     is RegisterContract.State.Loading -> {
-                        CircularProgressIndicator()
+                        CircularProgressIndicator(
+                            modifier = Modifier.fillMaxWidth(0.8F)
+                        )
                     }
 
                     is RegisterContract.State.Success -> {
                         Text(
+                            modifier = Modifier.fillMaxWidth(0.8F),
                             text = stringResource(
                                 R.string.register_login_successfully_message,
                                 s.firstName
@@ -151,6 +154,7 @@ fun RegisterScreen(
 
                     is RegisterContract.State.Failure -> {
                         Text(
+                            modifier = Modifier.fillMaxWidth(0.8F),
                             text = stringResource(
                                 R.string.register_login_failure_message,
                                 s.message
