@@ -48,3 +48,7 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+
+[bundles]
+ktor-client = ["ktor-client-core", "ktor-client-android", "ktor-client-content", "ktor-serialization-kotlinx-json", "ktor-client-logging"]
+koin-android = ["koin-android", "koin-androidx-compose"]
