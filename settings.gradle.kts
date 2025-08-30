@@ -33,3 +33,4 @@ include(
     ":features:dashboard",
     ":features:setting",
 )
+include(":common:utils")
