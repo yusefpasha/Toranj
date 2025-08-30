@@ -6,5 +6,6 @@
     <string name="register_password_label">Password</string>
     <string name="register_remember_me">Remember me</string>
     <string name="register_apply_btn">Login</string>
+    <string name="register_try_again">Try Again</string>
 
 </resources>

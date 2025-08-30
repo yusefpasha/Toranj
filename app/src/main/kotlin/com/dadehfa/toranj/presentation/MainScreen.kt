@@ -27,8 +27,7 @@ import com.dadehfa.toranj.features.dashboard.presentation.SettingScreen
 import com.dadehfa.toranj.features.operations.presentation.OperationViewModel
 import com.dadehfa.toranj.features.operations.presentation.OperationsEvent
 import com.dadehfa.toranj.features.operations.presentation.OperationsScreen
-import com.dadehfa.toranj.features.register.presentation.LoginScreen
-import com.dadehfa.toranj.features.register.presentation.RegisterEvent
+import com.dadehfa.toranj.features.register.presentation.RegisterScreen
 import com.dadehfa.toranj.features.register.presentation.RegisterViewModel
 import com.dadehfa.toranj.features.splash.presentation.SplashScreen
 import com.dadehfa.toranj.presentation.nav.MainNavBars
@@ -162,10 +161,10 @@ fun MainScreen(
             val viewModel = viewModel<RegisterViewModel>()
             val state by viewModel.state.collectAsStateWithLifecycle()
 
-            LoginScreen(
+            RegisterScreen(
                 modifier = Modifier.fillMaxSize(),
                 state = state,
-                onEvent = { event ->
+                onIntent = { event ->
                     when (event) {
                         RegisterEvent.OnLoginClick -> {
                             navGraph.navigate(MainNavigation.HomeScreen) {

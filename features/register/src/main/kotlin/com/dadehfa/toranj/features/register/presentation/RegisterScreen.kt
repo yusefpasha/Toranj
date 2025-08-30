@@ -1,24 +1,34 @@
 package com.dadehfa.toranj.features.register.presentation
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.dadehfa.toranj.common.ui.component.DefaultEditText
@@ -28,11 +38,29 @@ import com.dadehfa.toranj.features.register.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(
+fun RegisterScreen(
     modifier: Modifier = Modifier,
-    state: RegisterState,
-    onEvent: (event: RegisterEvent) -> Unit
+    state: RegisterContract.State,
+    effect: RegisterContract.Effect,
+    onIntent: (event: RegisterContract.Intent) -> Unit
 ) {
+
+    val context = LocalContext.current
+
+    var username by remember { mutableStateOf("emilys") }
+    var password by remember { mutableStateOf("emilyspass") }
+    var isRememberMe by remember { mutableStateOf(false) }
+
+    LaunchedEffect(key1 = effect) {
+        when (effect) {
+            is RegisterContract.Effect.ShowToast -> {
+                Toast.makeText(context, effect.message, Toast.LENGTH_SHORT).show()
+            }
+
+            else -> {}
+        }
+    }
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -74,17 +102,17 @@ fun LoginScreen(
                     ) {
                         DefaultEditText(
                             label = stringResource(R.string.register_username_label),
-                            value = state.username,
+                            value = username,
                             leadingIcon = Icons.Rounded.Person,
-                            onValueChange = { username ->
-                                onEvent(RegisterEvent.OnUsernameChange(username))
+                            onValueChange = { newUsername ->
+                                username = newUsername
                             }
                         )
                         DefaultEditTextPassword(
                             label = stringResource(R.string.register_password_label),
-                            value = state.password,
-                            onValueChange = { password ->
-                                onEvent(RegisterEvent.OnPasswordChange(password))
+                            value = password,
+                            onValueChange = { newPassword ->
+                                password = newPassword
                             }
                         )
                         Row(
@@ -92,9 +120,9 @@ fun LoginScreen(
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
                             Checkbox(
-                                checked = state.isRememberMe,
-                                onCheckedChange = { isRememberMe ->
-                                    onEvent(RegisterEvent.OnRememberMeChange(isRememberMe))
+                                checked = isRememberMe,
+                                onCheckedChange = { newIsRememberMe ->
+                                    isRememberMe = newIsRememberMe
                                 }
                             )
                             Text(
@@ -104,16 +132,50 @@ fun LoginScreen(
                     }
                 }
 
-                Button(
-                    modifier = Modifier.fillMaxWidth(0.8F),
-                    shape = MaterialTheme.shapes.large,
-                    onClick = {
-                        onEvent(RegisterEvent.OnLoginClick)
+                when (val s = state) {
+                    is RegisterContract.State.Idle -> {
+                        Button(
+                            modifier = Modifier.fillMaxWidth(0.8F),
+                            shape = MaterialTheme.shapes.large,
+                            onClick = {
+                                onIntent(
+                                    RegisterContract.Intent.Login(
+                                        username,
+                                        password
+                                    )
+                                )
+                            }
+                        ) {
+                            Text(
+                                text = stringResource(R.string.register_apply_btn)
+                            )
+                        }
                     }
-                ) {
-                    Text(
-                        text = stringResource(R.string.register_apply_btn)
-                    )
+
+                    is RegisterContract.State.Loading -> {
+                        CircularProgressIndicator()
+                    }
+
+                    is RegisterContract.State.Success -> {
+                        Text("Login successful! Name: ${s.firstName}")
+                    }
+
+                    is RegisterContract.State.Failure -> {
+                        Text("Error: ${s.message}", color = MaterialTheme.colorScheme.error)
+                        Spacer(modifier = Modifier.height(MaterialTheme.padding.medium))
+                        Button(onClick = {
+                            onIntent(
+                                RegisterContract.Intent.Login(
+                                    username,
+                                    password
+                                )
+                            )
+                        }) {
+                            Text(
+                                text = stringResource(R.string.register_try_again)
+                            )
+                        }
+                    }
                 }
 
             }
@@ -124,11 +186,9 @@ fun LoginScreen(
 @Preview
 @Composable
 private fun LoginScreenPreview() {
-    LoginScreen(
-        state = RegisterState(
-            username = "yusefpasha",
-            password = "0912345678",
-        ),
-        onEvent = {}
+    RegisterScreen(
+        state = RegisterContract.State.Idle,
+        effect = RegisterContract.Effect.Idle,
+        onIntent = {}
     )
 }

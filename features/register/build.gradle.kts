@@ -40,6 +40,7 @@ composeCompiler {
 
 dependencies {
     implementation(project(":common:ui"))
+    implementation(project(":common:utils"))
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
@@ -47,5 +48,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.bundles.ktor.client)
+    implementation(libs.bundles.koin.android)
     debugImplementation(libs.androidx.ui.tooling)
 }
