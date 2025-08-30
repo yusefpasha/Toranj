@@ -138,7 +138,7 @@ fun RegisterScreen(
 
                     is RegisterContract.State.Loading -> {
                         CircularProgressIndicator(
-                            modifier = Modifier.fillMaxWidth(0.8F)
+                            modifier = Modifier.fillMaxWidth(0.2F)
                         )
                     }
 
