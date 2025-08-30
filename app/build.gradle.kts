@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -24,13 +26,24 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            keyAlias = getLocalPropertyOrSystemEnvironment("SIGNING_KEY_ALIAS")
+            storeFile = file(getLocalPropertyOrSystemEnvironment("SIGNING_STORE_FILE"))
+            keyPassword = getLocalPropertyOrSystemEnvironment("SIGNING_KEY_PASSWORD")
+            storePassword = getLocalPropertyOrSystemEnvironment("SIGNING_STORE_PASSWORD")
+        }
+    }
+
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 
@@ -68,4 +81,18 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+}
+
+fun Project.getLocalPropertyOrSystemEnvironment(key: String): String {
+    val localProperties = Properties()
+    val localPropertiesFile = rootProject.file("local.properties")
+    val result = if (localPropertiesFile.exists()) {
+        val props = localProperties.apply {
+            load(localPropertiesFile.inputStream())
+        }
+        props.getProperty(key) ?: error("$key not found in local.properties")
+    } else {
+        System.getenv(key) ?: error("$key not found in environment variables")
+    }
+    return result
 }
