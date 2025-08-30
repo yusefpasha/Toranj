@@ -157,11 +157,22 @@ fun RegisterScreen(
                     }
 
                     is RegisterContract.State.Success -> {
-                        Text("Login successful! Name: ${s.firstName}")
+                        Text(
+                            text = stringResource(
+                                R.string.register_login_successfully_message,
+                                s.firstName
+                            )
+                        )
                     }
 
                     is RegisterContract.State.Failure -> {
-                        Text("Error: ${s.message}", color = MaterialTheme.colorScheme.error)
+                        Text(
+                            text = stringResource(
+                                R.string.register_login_failure_message,
+                                s.message
+                            ),
+                            color = MaterialTheme.colorScheme.error
+                        )
                         Spacer(modifier = Modifier.height(MaterialTheme.padding.medium))
                         Button(onClick = {
                             onIntent(

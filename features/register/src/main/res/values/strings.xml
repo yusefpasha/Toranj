@@ -8,4 +8,7 @@
     <string name="register_apply_btn">Login</string>
     <string name="register_try_again">Try Again</string>
 
+    <string name="register_login_failure_message">Error: %1$s</string>
+    <string name="register_login_successfully_message">Login successful! Name: %1$s</string>
+
 </resources>
