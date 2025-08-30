@@ -36,7 +36,7 @@ androidx-compose-material-icons-extended-android = { group = "androidx.compose.m
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktorClient" }
 ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktorClient" }
-ktor-client-content = { group = "io.ktor", name = "ktor-client-content", version.ref = "ktorClient" }
+ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktorClient" }
 ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktorClient" }
 ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktorClient" }
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koinVersion" }
@@ -50,5 +50,5 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 android-library = { id = "com.android.library", version.ref = "agp" }
 
 [bundles]
-ktor-client = ["ktor-client-core", "ktor-client-android", "ktor-client-content", "ktor-serialization-kotlinx-json", "ktor-client-logging"]
+ktor-client = ["ktor-client-core", "ktor-client-android", "ktor-client-content-negotiation", "ktor-serialization-kotlinx-json", "ktor-client-logging"]
 koin-android = ["koin-android", "koin-androidx-compose"]
