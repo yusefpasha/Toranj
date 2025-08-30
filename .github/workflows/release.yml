@@ -44,7 +44,7 @@ jobs:
           SIGNING_STORE_FILE: ${{ steps.decode_keystore.outputs.keystore_path }}
         run: ./gradlew assembleRelease bundleRelease
 
-      - name: Create GitHub Pre-release
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
