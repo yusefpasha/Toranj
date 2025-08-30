@@ -25,7 +25,7 @@ val RegisterDataInjection = module {
     single<HttpClient> {
         HttpClient(Android) {
 
-            expectSuccess = true
+            expectSuccess = false
 
             install(Logging) {
                 level = LogLevel.ALL
