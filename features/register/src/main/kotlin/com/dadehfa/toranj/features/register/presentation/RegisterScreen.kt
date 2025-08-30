@@ -1,6 +1,5 @@
 package com.dadehfa.toranj.features.register.presentation
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,14 +20,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.dadehfa.toranj.common.ui.component.DefaultEditText
@@ -41,25 +38,12 @@ import com.dadehfa.toranj.features.register.R
 fun RegisterScreen(
     modifier: Modifier = Modifier,
     state: RegisterContract.State,
-    effect: RegisterContract.Effect,
     onIntent: (event: RegisterContract.Intent) -> Unit
 ) {
-
-    val context = LocalContext.current
 
     var username by remember { mutableStateOf("emilys") }
     var password by remember { mutableStateOf("emilyspass") }
     var isRememberMe by remember { mutableStateOf(false) }
-
-    LaunchedEffect(key1 = effect) {
-        when (effect) {
-            is RegisterContract.Effect.ShowToast -> {
-                Toast.makeText(context, effect.message, Toast.LENGTH_SHORT).show()
-            }
-
-            else -> {}
-        }
-    }
 
     Scaffold(
         modifier = Modifier
@@ -199,7 +183,6 @@ fun RegisterScreen(
 private fun LoginScreenPreview() {
     RegisterScreen(
         state = RegisterContract.State.Idle,
-        effect = RegisterContract.Effect.Idle,
         onIntent = {}
     )
 }

@@ -1,5 +1,6 @@
 package com.dadehfa.toranj.presentation
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -9,11 +10,13 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -27,11 +30,13 @@ import com.dadehfa.toranj.features.dashboard.presentation.SettingScreen
 import com.dadehfa.toranj.features.operations.presentation.OperationViewModel
 import com.dadehfa.toranj.features.operations.presentation.OperationsEvent
 import com.dadehfa.toranj.features.operations.presentation.OperationsScreen
+import com.dadehfa.toranj.features.register.presentation.RegisterContract
 import com.dadehfa.toranj.features.register.presentation.RegisterScreen
 import com.dadehfa.toranj.features.register.presentation.RegisterViewModel
 import com.dadehfa.toranj.features.splash.presentation.SplashScreen
 import com.dadehfa.toranj.presentation.nav.MainNavBars
 import com.dadehfa.toranj.presentation.nav.MainNavigation
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun MainScreen(
@@ -158,24 +163,34 @@ fun MainScreen(
         }
         composable<MainNavigation.RegisterScreen> {
 
-            val viewModel = viewModel<RegisterViewModel>()
+            val context = LocalContext.current
+
+            val viewModel = koinViewModel<RegisterViewModel>()
             val state by viewModel.state.collectAsStateWithLifecycle()
+            val effect by viewModel.effect.collectAsStateWithLifecycle(RegisterContract.Effect.Idle)
+
+            LaunchedEffect(key1 = effect) {
+                val curEffect = effect
+                when (curEffect) {
+                    is RegisterContract.Effect.ShowToast -> {
+                        Toast.makeText(context, curEffect.message, Toast.LENGTH_SHORT).show()
+                    }
+
+                    is RegisterContract.Effect.NavigateToHome -> {
+                        navGraph.navigate(MainNavigation.HomeScreen) {
+                            restoreState = true
+                            launchSingleTop = true
+                        }
+                    }
+
+                    else -> {}
+                }
+            }
 
             RegisterScreen(
                 modifier = Modifier.fillMaxSize(),
                 state = state,
-                onIntent = { event ->
-                    when (event) {
-                        RegisterEvent.OnLoginClick -> {
-                            navGraph.navigate(MainNavigation.HomeScreen) {
-                                restoreState = true
-                                launchSingleTop = true
-                            }
-                        }
-
-                        else -> viewModel.onEvent(event)
-                    }
-                }
+                onIntent = viewModel::setIntent
             )
         }
     }

@@ -16,5 +16,6 @@ object RegisterContract {
     sealed interface Effect {
         data object Idle : Effect
         data class ShowToast(val message: String) : Effect
+        data object NavigateToHome : Effect
     }
 }

@@ -6,12 +6,14 @@ import com.dadehfa.toranj.common.utils.coroutineContextIO
 import com.dadehfa.toranj.features.register.domain.model.LoginRequest
 import com.dadehfa.toranj.features.register.domain.use_case.LoginUseCase
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.seconds
 
 class RegisterViewModel(private val loginUseCase: LoginUseCase) : ViewModel() {
 
@@ -36,6 +38,8 @@ class RegisterViewModel(private val loginUseCase: LoginUseCase) : ViewModel() {
                     _state.value =
                         RegisterContract.State.Success(response.firstName, response.lastName)
                     _effect.send(RegisterContract.Effect.ShowToast("Login Successful!"))
+                    delay(2.seconds)
+                    _effect.send(RegisterContract.Effect.NavigateToHome)
                 }
                 .onFailure { error ->
                     _state.value = RegisterContract.State.Failure(error.message ?: "Unknown error")
